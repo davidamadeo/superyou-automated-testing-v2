@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://i.ibb.co/djnLFxG/ux-design.png" height="80" /><br/>
   <span><b>Superyou</b>: :robot: <span>Automation Testing</span><br/>
-  <b>V2
+  <b>V2</b>
 </p>
   
 <br/>
