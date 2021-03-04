@@ -7,11 +7,16 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-PATH = "/usr/local/bin/chromedriver"
+# For Microsoft Edge Users
+PATH = "C:/msedgedriver.exe"
+
+# For Chrome Users
+# PATH = "C:/chromedriver.exe"
 
 class TestCaseLogin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(PATH)
+        # self.driver = webdriver.Chrome(PATH)
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
