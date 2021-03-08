@@ -7,13 +7,17 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-PATH = "/usr/local/bin/chromedriver"
+# For Microsoft Edge Users
+PATH = "C:/msedgedriver.exe"
+
+# For Chrome Users
+# PATH = "C:/chromedriver.exe"
 
 # Data Akun
-Email = "johndoe993@email.com" # Wajib Unik
-Phone = "081234567993" # Wajib Unik
-KTP = "1234567890123993" # Wajib Unik
+Email = "smith0003@email.com" # Wajib Unik
+Phone = "081234567985" # Wajib Unik
 
+KTP = "1234567890123966"
 Password = "Abcd1234"
 Name = "John Doe"
 TglLahir = "01"
@@ -32,7 +36,8 @@ ThnLahirAhliWaris = "1992"
  
 class TestCaseSingleProduct(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(PATH)
+        # self.driver = webdriver.Chrome(PATH)
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
@@ -100,7 +105,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_name("phone").send_keys(Phone) #Input No. Handphone
         driver.find_element_by_name("email").click()
         driver.find_element_by_name("email").send_keys(Email) #Input Email
-        driver.find_element_by_xpath("//input[@type='search']").click() #Click Status Pernikahan
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[3]/div/div[4]/div/div/div/div[1]").click() #Click Status Pernikahan
         driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li").click() #Select Status Pernikahan: Lajang
         driver.find_element_by_name("pob").click()
         driver.find_element_by_name("pob").send_keys(TempatLahir) #Input Tempat Lahir
@@ -110,18 +115,22 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_name("sub_district").send_keys(Kecamatan) #Input Kecamatan
         driver.find_element_by_name("zip").click()
         driver.find_element_by_name("zip").send_keys(KodePos) #Input Kode Pos
-        driver.find_element_by_xpath("(//div[@id='su-base-select']/div/div)[2]").click() #Click Daftar Pengeluaran
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[3]/div/div[14]/div/div/div/div[1]").click() #Click Daftar Pengeluaran
         driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li[2]").click() #Select Daftar Pengeluaran (Rp3jt - 6jt)
         time.sleep(2)
-        driver.find_element_by_xpath("//div[@id='form-user']/div[2]/div/div[3]/div/div[15]/button").click() #Click Button SUBMIT
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[3]/div/div[15]/button").click() #Click Button SUBMIT
         time.sleep(1)
 
         # Halaman Rincian Tertanggung
-        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[6]/button").click() #Lanjut Button (Halaman Rincian Tertanggung)
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/div/div").click() #Click Status Tertanggung
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li").click() #Select Tertanggung (Diri Sendiri)
+        driver.find_element_by_xpath("(//div[@id='su-base-select']/div/div)[4]").click() #Click Daftar Pekerjaan
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li[16]").click() #Select Pekerjaan (Karyawan Swasta)
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[7]/button").click() #Lanjut Button (Halaman Rincian Tertanggung)
         time.sleep(1)
 
         # Halaman Ahli Waris
-        driver.find_element_by_xpath("(//input[@type='search'])[4]").click() #Click Daftar Ahli Waris
+        driver.find_element_by_xpath("(//input[@type='search'])[5]").click() #Click Daftar Ahli Waris
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li[4]").click() #Select Daftar Ahli Waris
         driver.find_element_by_xpath("(//input[@name='name'])[3]").click()
         driver.find_element_by_xpath("(//input[@name='name'])[3]").send_keys(NamaAhliWaris) #Input Ahli Waris
@@ -183,7 +192,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_name("submit").click()
         time.sleep(2)
         driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-        time.sleep(8)
+        time.sleep(6)
         driver.close()
     
     def is_element_present(self, how, what):

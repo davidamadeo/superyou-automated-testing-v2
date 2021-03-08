@@ -69,30 +69,6 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
         time.sleep(1)
 
-        # # Go to Super Life product page
-        # driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[2]/a").click() #Super Life Product Page Button
-        # time.sleep(1)
-        # driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button
-        # time.sleep(1)
-        # driver.find_element_by_xpath("//input[@type='tel']").send_keys(TglLahir) #Input Tanggal Lahir Tertanggung
-        # driver.find_element_by_xpath("(//input[@type='tel'])[2]").send_keys(BlnLahir) #Input Bulan
-        # driver.find_element_by_xpath("(//input[@type='tel'])[3]").send_keys(ThnLahir) #Input Tahun
-        # time.sleep(1)
-        # driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
-        # time.sleep(1)
-
-        # # Go to MyHospital product page
-        # driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[4]/a/img").click() #MyHospital Product Page Button
-        # time.sleep(1)
-        # driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button
-        # time.sleep(1)
-        # driver.find_element_by_xpath("//input[@type='tel']").send_keys(TglLahir) #Input Tanggal Lahir Tertanggung
-        # driver.find_element_by_xpath("(//input[@type='tel'])[2]").send_keys(BlnLahir) #Input Bulan
-        # driver.find_element_by_xpath("(//input[@type='tel'])[3]").send_keys(ThnLahir) #Input Tahun
-        # time.sleep(1)
-        # driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
-        # time.sleep(1)
-
         # Klik Tombol Keranjang
         driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() #Klik Tombol Keranjang
         time.sleep(2)
@@ -127,36 +103,8 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[3]/div/div[1]/div/img").click() #Click Calendar Button
         time.sleep(1)
         driver.find_element_by_xpath("//div[@id='form-user']/div[2]/div/div[5]/div/div[5]/button").click() #Submit Button (Halaman Rincian Tertanggung)
-        time.sleep(1)
+        time.sleep(300)
 
-        # Halaman pembayaran
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[2]/div/label").click() #Klik S&K 1
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() #Klik S&K 2
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() #Klik S&K 3
-        driver.find_element_by_id("next-step").click() #SUBMIT
-        time.sleep(1)
-
-        # Halaman Faspay
-        driver.find_element_by_name("CARDNAME").click()
-        driver.find_element_by_name("CARDNAME").send_keys("FASPAY")
-        driver.find_element_by_name("CARDTYPE").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys("4111-1111-1111-1111")
-        driver.find_element_by_name("CARDCVC").click()
-        driver.find_element_by_name("CARDCVC").send_keys("101")
-        driver.find_element_by_id("month").click()
-        Select(driver.find_element_by_id("month")).select_by_visible_text("May")
-        driver.find_element_by_id("month").click()
-        driver.find_element_by_id("year").click()
-        Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
-        driver.find_element_by_id("year").click()
-        driver.find_element_by_name("submit").click()
-        time.sleep(2)
-        driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-        time.sleep(6)
         driver.close()
     
     def is_element_present(self, how, what):

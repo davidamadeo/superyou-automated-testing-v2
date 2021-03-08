@@ -7,11 +7,20 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-PATH = "/usr/local/bin/chromedriver"
+# For Microsoft Edge Users
+PATH = "C:/msedgedriver.exe"
+
+# For Chrome Users
+# PATH = "C:/chromedriver.exe"
+
+Name = "John Doe"
+Handphone = "0812345678777"
+Email = "johndoe777@gmail.com"
 
 class TestLeadGen(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(PATH)
+        # self.driver = webdriver.Chrome(PATH)
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
@@ -23,11 +32,11 @@ class TestLeadGen(unittest.TestCase):
         driver.get("https://staging.superyou.co.id/") #Link Website
         time.sleep(1) #In Second
         driver.find_element_by_id("Nama").click()
-        driver.find_element_by_id("Nama").send_keys("John Doe")
+        driver.find_element_by_id("Nama").send_keys(Name)
         driver.find_element_by_id("Handphone").click()
-        driver.find_element_by_id("Handphone").send_keys("0812345678777")
+        driver.find_element_by_id("Handphone").send_keys(Handphone)
         driver.find_element_by_id("Email").click()
-        driver.find_element_by_id("Email").send_keys("johndoe777@gmail.com")
+        driver.find_element_by_id("Email").send_keys(Email)
         driver.find_element_by_xpath("//div[@id='super-lead']/div/div/div/div[2]/div/form/button").click()
         time.sleep(3)
         driver.close()

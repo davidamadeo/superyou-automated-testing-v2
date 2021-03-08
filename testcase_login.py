@@ -7,11 +7,19 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-PATH = "/usr/local/bin/chromedriver" # set your chrome driver: `which chromedriver`
+# For Microsoft Edge Users
+PATH = "C:/msedgedriver.exe"
+
+# For Chrome Users
+# PATH = "C:/chromedriver.exe"
+
+Email = "smith@doe.com"
+Password = "wordpass"
 
 class TestCaseLogin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(PATH)
+        # self.driver = webdriver.Chrome(PATH)
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
@@ -26,13 +34,11 @@ class TestCaseLogin(unittest.TestCase):
         time.sleep(1)
         driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").click() #Email Column
         time.sleep(0.5)
-        Email = driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input") #Email Column
-        Email.send_keys("johndoe@gmail.com")
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").send_keys(Email) #Email Column
         time.sleep(1)
         driver.find_element_by_id("password").click() #Password Column
         time.sleep(0.5)
-        Password = driver.find_element_by_id("password") #Password Column
-        Password.send_keys("Abcd1234")
+        driver.find_element_by_id("password").send_keys(Password) #Password Column
         time.sleep(1)
         driver.find_element_by_id("submit_login").click() #Submit Button
         time.sleep(4)

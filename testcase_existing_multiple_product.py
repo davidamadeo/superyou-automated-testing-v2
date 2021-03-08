@@ -1,3 +1,5 @@
+# Klik lanjut beli not working after purchasing more than one product
+
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -7,10 +9,15 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-PATH = "/usr/local/bin/chromedriver"
+# For Microsoft Edge Users
+PATH = "C:/msedgedriver.exe"
+
+# For Chrome Users
+# PATH = "C:/chromedriver.exe"
 
 # Data Akun
-Email = "johndoe999@email.com" # Wajib Unik
+Email = "johndoe@email.com" # Wajib Unik
+Password = "Abcd1234" # Wajib Unik
 Phone = "08123456999" # Wajib Unik
 KTP = "1234567890123999" # Wajib Unik
 
@@ -32,7 +39,8 @@ ThnLahirAhliWaris = "1992"
  
 class TestCaseMultipleProduct(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(PATH)
+        # self.driver = webdriver.Chrome(PATH)
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
@@ -46,12 +54,10 @@ class TestCaseMultipleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[3]/div/div/div[2]/a[2]").click() #Login Button
         time.sleep(1)
         driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").click() #Email Column
-        Email = driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input") #Email Column
-        Email.send_keys("johndoe@gmail.com")
-        driver.find_element_by_id("password").click() #Password Column
-        Password = driver.find_element_by_id("password") #Password Column
-        Password.send_keys("Abcd1234")
-        driver.find_element_by_id("submit_login").click() #Submit Button
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").send_keys(Email) #Email Column
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[2]/input").click() #Password Column
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[2]/input").send_keys(Password) #Password Column
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[2]/button").click() #Submit Button
         time.sleep(1)
 
         # Go to Home
@@ -66,6 +72,10 @@ class TestCaseMultipleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
         time.sleep(1)
 
+        # # Go to Home
+        # driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
+        # time.sleep(2)
+
         # # Go to Super Life product page
         # driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[2]/a").click() #Super Life Product Page Button
         # time.sleep(1)
@@ -78,26 +88,26 @@ class TestCaseMultipleProduct(unittest.TestCase):
         # driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
         # time.sleep(1)
 
-        # Go to Home
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
-        time.sleep(2)
+        # # Go to Home
+        # driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
+        # time.sleep(2)
 
-        # Go to MyHospital product page
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[4]/a/img").click() #MyHospital Product Page Button
-        time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button
-        time.sleep(1)
-        driver.find_element_by_xpath("//input[@type='tel']").send_keys(TglLahir) #Input Tanggal Lahir Tertanggung
-        driver.find_element_by_xpath("(//input[@type='tel'])[2]").send_keys(BlnLahir) #Input Bulan
-        driver.find_element_by_xpath("(//input[@type='tel'])[3]").send_keys(ThnLahir) #Input Tahun
-        time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
-        time.sleep(1)
+        # # Go to MyHospital product page
+        # driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[4]/a/img").click() #MyHospital Product Page Button
+        # time.sleep(1)
+        # driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button
+        # time.sleep(1)
+        # driver.find_element_by_xpath("//input[@type='tel']").send_keys(TglLahir) #Input Tanggal Lahir Tertanggung
+        # driver.find_element_by_xpath("(//input[@type='tel'])[2]").send_keys(BlnLahir) #Input Bulan
+        # driver.find_element_by_xpath("(//input[@type='tel'])[3]").send_keys(ThnLahir) #Input Tahun
+        # time.sleep(1)
+        # driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
+        # time.sleep(1)
 
         # Klik Tombol Keranjang
         driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() #Klik Tombol Keranjang
         time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[6]/div/div[2]").click() #Klik Lanjut Beli
+        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[5]/div/div[2]/div").click() #Klik Lanjut Beli
 
         #Pengisi Form Isi Data
         time.sleep(1)
@@ -108,7 +118,11 @@ class TestCaseMultipleProduct(unittest.TestCase):
         time.sleep(1)
 
         # Halaman Rincian Tertanggung
-        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[6]/button").click() #Lanjut Button (Halaman Rincian Tertanggung)
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/div/div").click() #Click Status Tertanggung
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li").click() #Select Tertanggung (Diri Sendiri)
+        driver.find_element_by_xpath("(//div[@id='su-base-select']/div/div)[4]").click() #Click Daftar Pekerjaan
+        driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li[16]").click() #Select Pekerjaan (Karyawan Swasta)
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[7]/button").click() #Lanjut Button (Halaman Rincian Tertanggung)
         time.sleep(1)
 
         # Halaman Ahli Waris
@@ -134,6 +148,7 @@ class TestCaseMultipleProduct(unittest.TestCase):
         time.sleep(1)
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() #Klik S&K 3
         driver.find_element_by_id("next-step").click() #SUBMIT
+        time.sleep(1)
 
         # Halaman Faspay
         driver.find_element_by_name("CARDNAME").click()
