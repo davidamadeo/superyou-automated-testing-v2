@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from decouple import config
 import unittest, time, re
 
 # For Microsoft Edge Users
@@ -14,27 +15,19 @@ PATH = "C:/msedgedriver.exe"
 # PATH = "C:/chromedriver.exe"
 
 # Data Akun
-Email = "smith@doe.com" # Wajib Unik
-Phone = "08123456969" # Wajib Unik
+Email = config("EXISTING_USER_EMAIL", cast=str)
+Password = config("NEW_USER_PASSWORD", cast=str)
 
-KTP = "1234567890123919"
-Name = "John Doe"
-Password = "wordpass"
-TglLahir = "01"
-BlnLahir = "01"
-ThnLahir = "1991"
-Kelurahan = "Kelurahan"
-Kota = "Jakarta"
-TempatLahir = "Jakarta"
-Alamat = "Jl. Jakarta No. 1"
-Kecamatan = "Kecamatan"
-KodePos = "12345"
-NamaAhliWaris = "Jane Doe"
-TglLahirAhliWaris = "02"
-BlnLahirAhliWaris = "02"
-ThnLahirAhliWaris = "1992"
+NamaAhliWaris = config("NAME_BENEFICIARY", cast=str)
+TglLahirAhliWaris = config("DAY_OF_BIRTH_BENEFICIARY", cast=str)
+BlnLahirAhliWaris = config("MONTH_OF_BIRTH_BENEFICIARY", cast=str)
+ThnLahirAhliWaris = config("YEAR_OF_BIRTH_BENEFICIARY", cast=str)
+
+CardName = config("CARD_NAME", cast=str)
+CardNum = config("CARD_NUM", cast=str)
+CardCVC = config("CARD_CVC", cast=str)
  
-class TestCaseSingleProduct(unittest.TestCase):
+class TestCaseMultipleProduct(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Edge(PATH)
         # self.driver = webdriver.Chrome(PATH)
@@ -43,7 +36,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_NewUser_SingleProduct(self):
+    def test_case_ExistingUser_SingleProduct(self):
         driver = self.driver
         driver.maximize_window()
         driver.get("https://staging.superyou.co.id/") #Link Website
@@ -64,15 +57,40 @@ class TestCaseSingleProduct(unittest.TestCase):
         # Go to Super Strong product page
         driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[3]/a").click() #Super Strong Product Page Button
         time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/div[1]/div[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button
+        driver.find_element_by_xpath("/html/body/div[3]/div[1]/div[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button (Bronze Plan)
         time.sleep(1)
         driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
         time.sleep(1)
 
+        # Go to Home
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
+        time.sleep(2)
+
+        # Go to Super Life product page
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[2]/a").click() #Super Life Product Page Button
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button (Bronze Plan)
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
+        time.sleep(1)
+
+        # Go to Home
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
+        time.sleep(2)
+
+        # Go to MyHospital product page
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[4]/a/img").click() #MyHospital Product Page Button
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() #Pilih Plan Ini Button (Bronze Plan)
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() #Klik Beli Plan
+        time.sleep(1)
+
         # Klik Tombol Keranjang
         driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() #Klik Tombol Keranjang
-        time.sleep(2)
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[5]/div/div[2]/div").click() #Klik Lanjut Beli
+        time.sleep(1)
+        # driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[6]/div/div[2]/div").click() #Klik Lanjut Beli (2 Products)
+        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[7]/div/div[2]/div").click() #Klik Lanjut Beli (3 Products)
 
         #Pengisi Form Isi Data
         time.sleep(1)
@@ -103,8 +121,36 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[3]/div/div[1]/div/img").click() #Click Calendar Button
         time.sleep(1)
         driver.find_element_by_xpath("//div[@id='form-user']/div[2]/div/div[5]/div/div[5]/button").click() #Submit Button (Halaman Rincian Tertanggung)
-        time.sleep(300)
+        time.sleep(1)
 
+       # Halaman pembayaran
+        time.sleep(1)
+        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[2]/div/label").click() #Klik S&K 1
+        time.sleep(1)
+        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() #Klik S&K 2
+        time.sleep(1)
+        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() #Klik S&K 3
+        driver.find_element_by_id("next-step").click() #SUBMIT
+        time.sleep(1)
+
+        # Halaman Faspay
+        driver.find_element_by_name("CARDNAME").click()
+        driver.find_element_by_name("CARDNAME").send_keys(CardName)
+        driver.find_element_by_name("CARDTYPE").click()
+        driver.find_element_by_id("CARDNOSHOWFORMAT").click()
+        driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum)
+        driver.find_element_by_name("CARDCVC").click()
+        driver.find_element_by_name("CARDCVC").send_keys(CardCVC)
+        driver.find_element_by_id("month").click()
+        Select(driver.find_element_by_id("month")).select_by_visible_text("May")
+        driver.find_element_by_id("month").click()
+        driver.find_element_by_id("year").click()
+        Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
+        driver.find_element_by_id("year").click()
+        driver.find_element_by_name("submit").click()
+        time.sleep(2)
+        driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
+        time.sleep(8)
         driver.close()
     
     def is_element_present(self, how, what):
@@ -134,24 +180,3 @@ class TestCaseSingleProduct(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-# Link dokumentasi Python Selenium:
-# https://selenium-python.readthedocs.io/api.html
-
-# Steps untuk jalankan Automation Test:
-
-# 1. Install Python:
-# https://www.python.org/downloads/
-
-# 2. Install Selenium melalui code ini pada Terminal:
-# - Windows: pip install Selenium
-# - Mac: pip3 install Selenium
-
-# 3. WAJIB download chromedriver di link https://sites.google.com/a/chromium.org/chromedriver/home
-# Sesuaikan versi chromedriver dengan versi Browser Chrome yang dimiliki saat ini
-# Masukkan path file driver hasil download pada PATH di atas (PATH = "C:\chromedriver.exe")
-
-# 4. Beberapa cara run automation test:
-# - Visual Code: Tekan Button Play (Pojok Kanan Atas)
-# - Terminal (Windows): Ketik "python Test_Case_Login.py" lalu tekan Enter
-# - Terminal (Mac): Ketik "python3 Test_Case_Login.py" lalu tekan Enter
