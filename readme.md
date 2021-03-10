@@ -14,9 +14,20 @@ Steps to implement and execute Automation Test:
 1. Install Python:
 https://www.python.org/downloads/
 
-2. Install Selenium by entering the following commands into the Terminal:
-- Windows: `pip install Selenium`
-- Mac: `pip3 install Selenium`
+2. Install all the dependencies required that are listed in requirements.txt
+```console
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+
+You can check whether the dependices have been installed by running and a list of the installed dependencies will appear
+```console
+pip list
+```
+or
+```console
+python -m pip install -r requirements.txt
+```
 
 #### If you use Google Chrome:
 
@@ -45,3 +56,4 @@ A few ways to run automation test:
 
 ### For references:
 Microsoft Edge Installation: https://docs.microsoft.com/en-us/microsoft-edge/webdriver-chromium/?tabs=python
+Requirements Text Documentation: https://pip.pypa.io/en/stable/user_guide/#requirements-files
