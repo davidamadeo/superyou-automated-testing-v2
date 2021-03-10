@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from decouple import config
 import unittest, time, re
 
 # For Microsoft Edge Users
@@ -12,6 +13,9 @@ PATH = "C:/msedgedriver.exe"
 
 # For Chrome Users
 # PATH = "C:/chromedriver.exe"
+
+Email = config("EXISTING_USER_EMAIL", cast=str)
+Password = config("EXISTING_USER_PASSWORD", cast=str)
 
 class TestCaseLogin(unittest.TestCase):
     def setUp(self):
@@ -31,20 +35,20 @@ class TestCaseLogin(unittest.TestCase):
         time.sleep(1)
         driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").click() #Email Column
         time.sleep(0.5)
-        Email = driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input") #Email Column
-        Email.send_keys("John@doe.com") #Input Email
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").send_keys(Email) #Email Column
         time.sleep(1)
         driver.find_element_by_id("password").click() #Password Column
         time.sleep(0.5)
-        Password = driver.find_element_by_id("password") #Password Column
-        Password.send_keys("john@doe") #Input Password 
+        driver.find_element_by_id("password").send_keys(Password) #Password Column
         time.sleep(1)
         driver.find_element_by_id("submit_login").click() #Submit Button
-        time.sleep(3)
+        time.sleep(4)
         driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() #E-Policy Page
         time.sleep(3)
-        driver.find_element_by_xpath("/html/body/div[2]/div[2]/div[2]/div[3]/div[5]/div/div/div/div[2]/div[1]/a").click() #Download E-Policy
-        time.sleep(7)
+        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() #Claim Page
+        time.sleep(3)
+        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() #Payment Page
+        time.sleep(3)
         driver.close()
     
     def is_element_present(self, how, what):
@@ -74,24 +78,3 @@ class TestCaseLogin(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-# Link dokumentasi Python Selenium:
-# https://selenium-python.readthedocs.io/api.html
-
-# Steps untuk jalankan Automation Test:
-
-# 1. Install Python:
-# https://www.python.org/downloads/
-
-# 2. Install Selenium melalui code ini pada Terminal:
-# - Windows: pip install Selenium
-# - Mac: pip3 install Selenium
-
-# 3. WAJIB download chromedriver di link https://sites.google.com/a/chromium.org/chromedriver/home
-# Sesuaikan versi chromedriver dengan versi Browser Chrome yang dimiliki saat ini
-# Masukkan path file driver hasil download pada PATH di atas (PATH = "C:\chromedriver.exe")
-
-# 4. Beberapa cara run automation test:
-# - Visual Code: Tekan Button Play (Pojok Kanan Atas)
-# - Terminal (Windows): Ketik "python Test_Case_Login.py" lalu tekan Enter
-# - Terminal (Mac): Ketik "python3 Test_Case_Login.py" lalu tekan Enter
