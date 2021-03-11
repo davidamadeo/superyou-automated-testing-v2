@@ -1,3 +1,5 @@
+# Last tested 3/11/2021 14:14
+
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,20 +10,14 @@ from selenium.common.exceptions import NoAlertPresentException
 from decouple import config
 import unittest, time, re
 
-# For Microsoft Edge Users
-PATH = "C:/msedgedriver.exe"
-
-# For Chrome Users
-# PATH = "C:/chromedriver.exe"
-
 Name = config("EXISTING_USER_NAME", cast=str)
 Handphone = config("EXISTING_USER_PHONE", cast=str)
 Email = config("EXISTING_USER_EMAIL", cast=str)
 
 class TestLeadGen(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Edge(PATH)
-        # self.driver = webdriver.Chrome(PATH)
+        self.driver = webdriver.Edge(config("DRIVER_PATH", cast=str))
+        # self.driver = webdriver.Chrome(config("DRIVER_PATH", cast=str))
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
@@ -32,14 +28,16 @@ class TestLeadGen(unittest.TestCase):
         driver.maximize_window()
         driver.get("https://staging.superyou.co.id/") #Link Website
         time.sleep(1) #In Second
-        driver.find_element_by_id("Nama").click()
-        driver.find_element_by_id("Nama").send_keys(Name)
-        driver.find_element_by_id("Handphone").click()
-        driver.find_element_by_id("Handphone").send_keys(Handphone)
-        driver.find_element_by_id("Email").click()
-        driver.find_element_by_id("Email").send_keys(Email)
-        driver.find_element_by_xpath("//div[@id='super-lead']/div/div/div/div[2]/div/form/button").click()
+
+        driver.find_element_by_id("Nama").click() # Name Field
+        driver.find_element_by_id("Nama").send_keys(Name) # Input Name
+        driver.find_element_by_id("Handphone").click() # Phone Field
+        driver.find_element_by_id("Handphone").send_keys(Handphone) # Input Phone Num
+        driver.find_element_by_id("Email").click() # Email Field
+        driver.find_element_by_id("Email").send_keys(Email) # Input Email
+        driver.find_element_by_xpath("/html/body/div[3]/div[3]/div/div/div/div[2]/div/form/button").click() # Hubungi Saya button
         time.sleep(3)
+
         driver.close()
     
     def is_element_present(self, how, what):
