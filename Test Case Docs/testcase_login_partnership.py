@@ -1,4 +1,4 @@
-# Last tested 3/11/2021 14:14
+# Last tested 3/11/2021 14:17
 
 # -*- coding: utf-8 -*-
 from selenium import webdriver
@@ -10,11 +10,10 @@ from selenium.common.exceptions import NoAlertPresentException
 from decouple import config
 import unittest, time, re
 
-Name = config("EXISTING_USER_NAME", cast=str)
-Handphone = config("EXISTING_USER_PHONE", cast=str)
-Email = config("EXISTING_USER_EMAIL", cast=str)
+Username = config("DOCS_USERNAME", cast=str)
+Password = config("DOCS_PASSWORD", cast=str)
 
-class TestLeadGen(unittest.TestCase):
+class UntitledTestCase8(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Edge(config("DRIVER_PATH", cast=str))
         # self.driver = webdriver.Chrome(config("DRIVER_PATH", cast=str))
@@ -23,20 +22,22 @@ class TestLeadGen(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_LeadGen(self):
+    def test_untitled_test_case8(self):
         driver = self.driver
         driver.maximize_window()
-        driver.get("https://staging.superyou.co.id/") #Link Website
-        time.sleep(1) #In Second
-
-        driver.find_element_by_id("Nama").click() # Name Field
-        driver.find_element_by_id("Nama").send_keys(Name) # Input Name
-        driver.find_element_by_id("Handphone").click() # Phone Field
-        driver.find_element_by_id("Handphone").send_keys(Handphone) # Input Phone Num
-        driver.find_element_by_id("Email").click() # Email Field
-        driver.find_element_by_id("Email").send_keys(Email) # Input Email
-        driver.find_element_by_xpath("/html/body/div[3]/div[3]/div/div/div/div[2]/div/form/button").click() # Hubungi Saya button
-        time.sleep(3)
+        driver.get("https://staging-partnership.superyou.co.id/dev/docs") # Website Link
+        time.sleep(1)
+        
+        driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/section/div/button").click() # Click Authroize Button
+        driver.find_element_by_id("oauth_username").click() # Click username field
+        driver.find_element_by_id("oauth_username").clear()
+        driver.find_element_by_id("oauth_username").send_keys(Username) # Enter username
+        driver.find_element_by_id("oauth_password").clear()
+        driver.find_element_by_id("oauth_password").send_keys(Password) # Enter password
+        time.sleep(2)
+        driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/section/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div[4]/button[1]").click() # Click authorize
+        driver.find_element_by_xpath("/html/body/div/div/div[2]/div[2]/section/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div[3]/button[2]").click() # Click close
+        time.sleep(2)
 
         driver.close()
     

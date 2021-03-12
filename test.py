@@ -1,6 +1,6 @@
 import os
 from decouple import config
 
-password = config("ADDRESS", cast=str)
+variable = config("DRIVER_PATH", cast=str)
 
-print(password)
+print(variable)
