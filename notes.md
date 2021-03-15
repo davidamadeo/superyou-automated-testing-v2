@@ -36,6 +36,7 @@
 - [x] Login & Logout Underwriting
 - [x] Login & Logout Partnership Dev
 - [x] Login & Logout Products
+- [x] POST method to create new scoring
 
 <br/>
 
@@ -54,3 +55,8 @@ _Radio button cannot be clicked (dynamic modal)_
 - [x] change all comments and documentation to English
 - [x] test all `existing users postponed due to bug 03/11`
 
+### Updates
+
+Monday, March 5 2021
+- Add .env product types and payment types for existing and new users
+- Merge super care and super safe into single product purchase
