@@ -1,3 +1,6 @@
+'''
+# Last tested 3/11/2021 14:21
+
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -19,6 +22,9 @@ NamaAhliWaris = config("NAME_BENEFICIARY", cast=str)
 TglLahirAhliWaris = config("DAY_OF_BIRTH_BENEFICIARY", cast=str)
 BlnLahirAhliWaris = config("MONTH_OF_BIRTH_BENEFICIARY", cast=str)
 ThnLahirAhliWaris = config("YEAR_OF_BIRTH_BENEFICIARY", cast=str)
+
+Product = config("PRODUCT", cast=str)
+PaymentMethod = config("PAYMENT_METHOD", cast=str)
 
 CardName = config("CARD_NAME", cast=str)
 CardNum = config("CARD_NUM", cast=str)
@@ -107,7 +113,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         # time.sleep(1)
 
         # Halaman Ahli Waris
-        driver.find_element_by_xpath("(//input[@type='search'])[5]").click() # Click Daftar Ahli Waris
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[1]/div/div[2]/div").click() # Click Daftar Ahli Waris
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li[4]").click() # Select Daftar Ahli Waris
         driver.find_element_by_xpath("(//input[@name='name'])[3]").click()
         driver.find_element_by_xpath("(//input[@name='name'])[3]").send_keys(NamaAhliWaris) # Input Ahli Waris
@@ -131,7 +137,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("//button[@type='submit']").click() # Submit Button (Halaman Konfirmasi Nomor HP)
         time.sleep(1)
 
-         # Input Password
+        # Input Password
         driver.find_element_by_name("password").click()
         driver.find_element_by_name("password").send_keys(Password)
         driver.find_element_by_name("confirm_password").click()
@@ -150,24 +156,29 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_id("next-step").click() # SUBMIT
         time.sleep(1)
 
-        # Halaman Faspay
-        driver.find_element_by_name("CARDNAME").click()
-        driver.find_element_by_name("CARDNAME").send_keys(CardName) # Input Card Name
-        driver.find_element_by_name("CARDTYPE").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum) # Input Card Number
-        driver.find_element_by_name("CARDCVC").click()
-        driver.find_element_by_name("CARDCVC").send_keys(CardCVC) # Input CVC
-        driver.find_element_by_id("month").click()
-        Select(driver.find_element_by_id("month")).select_by_visible_text("May")
-        driver.find_element_by_id("month").click()
-        driver.find_element_by_id("year").click()
-        Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
-        driver.find_element_by_id("year").click()
-        driver.find_element_by_name("submit").click() # Click Submit button
-        time.sleep(2)
-        driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-        time.sleep(6)
+        if (PaymentMethod) == "faspay":
+            # Pilih metode pembayaran
+            driver.find_element_by_xpath("/html/body/section/form/div/div[2]/div[2]/div[8]/div/div/div/div[1]/div/div[1]/a/div[2]").click()
+            driver.find_element_by_id("next-step").click() # SUBMIT
+
+            # Halaman Faspay
+            driver.find_element_by_name("CARDNAME").click()
+            driver.find_element_by_name("CARDNAME").send_keys(CardName) # Input Card Name
+            driver.find_element_by_name("CARDTYPE").click()
+            driver.find_element_by_id("CARDNOSHOWFORMAT").click()
+            driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum) # Input Card Number
+            driver.find_element_by_name("CARDCVC").click()
+            driver.find_element_by_name("CARDCVC").send_keys(CardCVC) # Input CVC
+            driver.find_element_by_id("month").click()
+            Select(driver.find_element_by_id("month")).select_by_visible_text("May")
+            driver.find_element_by_id("month").click()
+            driver.find_element_by_id("year").click()
+            Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
+            driver.find_element_by_id("year").click()
+            driver.find_element_by_name("submit").click() # Click Submit button
+            time.sleep(2)
+            driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
+            time.sleep(6)
         
         driver.close()
     
@@ -198,3 +209,4 @@ class TestCaseSingleProduct(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+'''

@@ -1,3 +1,5 @@
+# Last tested 3/11/2021 14:21
+
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -16,6 +18,10 @@ NamaAhliWaris = config("NAME_BENEFICIARY", cast=str)
 TglLahirAhliWaris = config("DAY_OF_BIRTH_BENEFICIARY", cast=str)
 BlnLahirAhliWaris = config("MONTH_OF_BIRTH_BENEFICIARY", cast=str)
 ThnLahirAhliWaris = config("YEAR_OF_BIRTH_BENEFICIARY", cast=str)
+
+Product = config("PRODUCT", cast=str)
+NumOfProduct = config("NUM_OF_PRODUCT", cast=str)
+PaymentMethod = config("PAYMENT_METHOD", cast=str)
 
 CardName = config("CARD_NAME", cast=str)
 CardNum = config("CARD_NUM", cast=str)
@@ -80,11 +86,35 @@ class TestCaseMultipleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() # Click Beli Plan
         time.sleep(1)
 
+        # Go to Home
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[2]/div[3]/div/div/a").click()
+        time.sleep(2)
+
+        # Go to Super Safe product page
+        driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div/div[1]/div/div[5]/a").click() # Super Safe Product Page Button
+        time.sleep(1)
+        driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[7]/a").click() # Click Plan Ini (Bronze Plan)
+        time.sleep(1)
+
+        # Pilih Rider
+        driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[5]/div/label").click() # Pilih Rider Super Holiday Protection
+        driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[6]/div/label").click() # Pilih Rider SUper Motor Protection
+
         # Click Tombol Keranjang
         driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() # Click Tombol Keranjang
         time.sleep(1)
-        # driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[6]/div/div[2]/div").click() # Click Lanjut Beli (2 Products)
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[7]/div/div[2]/div").click() # Click Lanjut Beli (3 Products)
+
+        if (NumOfProduct) == '2':
+            driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[6]/div/div[2]/div").click() # Click Lanjut Beli (2 Products)
+            
+        elif (NumOfProduct) == '3':
+            driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[7]/div/div[2]/div").click() # Click Lanjut Beli (3 Products)
+
+        elif (NumOfProduct) == '4':
+            driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[8]/div/div[2]/div").click() # Click Lanjut Beli (4 Products)
+
+        else:
+            print("Number of products should either be 2, 3, and 4.")
 
         # Pengisi Form Isi Data
         time.sleep(1)
@@ -97,13 +127,11 @@ class TestCaseMultipleProduct(unittest.TestCase):
         # Halaman Rincian Tertanggung
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/div/div").click() # Click Status Tertanggung
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li").click() # Select Tertanggung (Diri Sendiri)
-        driver.find_element_by_xpath("(//div[@id='su-base-select']/div/div)[4]").click() # Click Daftar Pekerjaan
-        driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li[16]").click() # Select Pekerjaan (Karyawan Swasta)
-        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[7]/button").click() # Lanjut Button (Halaman Rincian Tertanggung)
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[6]/button").click() # Lanjut Button (Halaman Rincian Tertanggung)
         time.sleep(1)
 
         # Halaman Ahli Waris
-        driver.find_element_by_xpath("(//input[@type='search'])[5]").click() # Click Daftar Ahli Waris
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[1]/div/div[2]/div").click() # Click Daftar Ahli Waris
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li[4]").click() # Select Daftar Ahli Waris
         driver.find_element_by_xpath("(//input[@name='name'])[3]").click()
         driver.find_element_by_xpath("(//input[@name='name'])[3]").send_keys(NamaAhliWaris) # Input Ahli Waris
@@ -124,27 +152,30 @@ class TestCaseMultipleProduct(unittest.TestCase):
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() # Click S&K 2
         time.sleep(1)
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() # Click S&K 3
-        driver.find_element_by_id("next-step").click() # SUBMIT
         time.sleep(1)
 
-        # Halaman Faspay
-        driver.find_element_by_name("CARDNAME").click()
-        driver.find_element_by_name("CARDNAME").send_keys(CardName) # Input Card Name
-        driver.find_element_by_name("CARDTYPE").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum) # Input Card Number
-        driver.find_element_by_name("CARDCVC").click()
-        driver.find_element_by_name("CARDCVC").send_keys(CardCVC) # Input CVC
-        driver.find_element_by_id("month").click()
-        Select(driver.find_element_by_id("month")).select_by_visible_text("May")
-        driver.find_element_by_id("month").click()
-        driver.find_element_by_id("year").click()
-        Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
-        driver.find_element_by_id("year").click()
-        driver.find_element_by_name("submit").click() # Click Submit button
-        time.sleep(2)
-        driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-        time.sleep(6)
+        if (PaymentMethod) == "faspay":
+            # Pilih metode pembayaran
+            driver.find_element_by_id("next-step").click() # SUBMIT
+
+            # Halaman Faspay
+            driver.find_element_by_name("CARDNAME").click()
+            driver.find_element_by_name("CARDNAME").send_keys(CardName) # Input Card Name
+            driver.find_element_by_name("CARDTYPE").click()
+            driver.find_element_by_id("CARDNOSHOWFORMAT").click()
+            driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum) # Input Card Number
+            driver.find_element_by_name("CARDCVC").click()
+            driver.find_element_by_name("CARDCVC").send_keys(CardCVC) # Input CVC
+            driver.find_element_by_id("month").click()
+            Select(driver.find_element_by_id("month")).select_by_visible_text("May")
+            driver.find_element_by_id("month").click()
+            driver.find_element_by_id("year").click()
+            Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
+            driver.find_element_by_id("year").click()
+            driver.find_element_by_name("submit").click() # Click Submit button
+            time.sleep(2)
+            driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
+            time.sleep(6)
 
         driver.close()
     

@@ -8,7 +8,9 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from decouple import config
-import unittest, time, re
+import unittest, time, re, sys
+
+var = sys.argv[1]
 
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("EXISTING_USER_PASSWORD", cast=str)
@@ -21,6 +23,7 @@ class TestCaseLogin(unittest.TestCase):
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
+        print(var)
     
     def test_case_login(self):
         driver = self.driver

@@ -1,3 +1,5 @@
+# Last tested 3/11/2021 14:21
+
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,13 +14,13 @@ import unittest, time, re
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("NEW_USER_PASSWORD", cast=str)
 
-TglLahir = config("DAY_OF_BIRTH", cast=str)
-BlnLahir = config("MONTH_OF_BIRTH", cast=str)
-ThnLahir = config("YEAR_OF_BIRTH", cast=str)
 NamaAhliWaris = config("NAME_BENEFICIARY", cast=str)
 TglLahirAhliWaris = config("DAY_OF_BIRTH_BENEFICIARY", cast=str)
 BlnLahirAhliWaris = config("MONTH_OF_BIRTH_BENEFICIARY", cast=str)
 ThnLahirAhliWaris = config("YEAR_OF_BIRTH_BENEFICIARY", cast=str)
+
+Product = config("PRODUCT", cast=str)
+PaymentMethod = config("PAYMENT_METHOD", cast=str)
 
 CardName = config("CARD_NAME", cast=str)
 CardNum = config("CARD_NUM", cast=str)
@@ -36,7 +38,7 @@ class TestCaseSingleProduct(unittest.TestCase):
     def test_case_NewUser_SingleProduct(self):
         driver = self.driver
         driver.maximize_window()
-        driver.get("https://staging.superyou.co.id/") # Link Website
+        driver.get("https://staging.superyou.co.id/") # Website Link
         time.sleep(1) # In Second
 
         driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[3]/div/div/div[2]/a[2]").click() # Login Button
@@ -52,20 +54,46 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[1]/a").click()
         time.sleep(2)
 
-        # Go to Super Safe product page
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div/div[1]/div/div[5]/a").click() # Super Safe Product Page Button
-        time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[7]/a").click() # Click Plan Ini (Bronze Plan)
-        time.sleep(1)
+        if (Product) == "strong":
+            # Go to Super Strong product page
+            driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[3]/a").click() # Super Strong Product Page Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/div[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() # Pilih Plan Ini Button (Bronze Plan)
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() # Click Beli Plan
+            time.sleep(1)
 
-        # # Pilih Rider
-        # driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[5]/div/label").click() # Pilih Rider Super Holiday Protection
-        # driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[6]/div/label").click() # Pilih Rider SUper Motor Protection
+        elif (Product) == 'life':
+            # Go to Super Life product page
+            driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[2]/a").click() # Super Life Product Page Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() # Pilih Plan Ini Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/section/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() # Click Beli Plan
+            time.sleep(1)
 
-        time.sleep(1)
+        elif (Product) == 'hospital':
+            # Go to MyHospital product page
+            driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div[1]/div[1]/div/div[4]/a/img").click() # MyHospital Product Page Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[1]/div/div[3]/div[1]/div/div/div/div[3]/a").click() # Pilih Plan Ini Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[5]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li/div/a").click() # Click Beli Plan
+            time.sleep(1)
 
-        driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li[3]/div/a").click() # Click Beli Plan
-        time.sleep(1)
+        elif (Product) == 'safe':
+            # Go to Super Safe product page
+            driver.find_element_by_xpath("/html/body/div[3]/header/div[4]/div/div/div[2]/div/div[1]/div/div[5]/a").click() # Super Safe Product Page Button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[1]/div/div[3]/div[1]/div/div/div/div[7]/a").click() # Click Plan Ini (Bronze Plan)
+            time.sleep(1)
+
+            # Pilih Rider
+            driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[5]/div/label").click() # Pilih Rider Super Holiday Protection
+            driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[6]/div/label").click() # Pilih Rider SUper Motor Protection
+
+        else:
+            print("Wrong Input. Please input 'strong', 'safe', 'life' or 'hospital' in lower case letters.")
 
         # Click Tombol Keranjang
         driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() # Click Tombol Keranjang
@@ -83,13 +111,11 @@ class TestCaseSingleProduct(unittest.TestCase):
         # Halaman Rincian Tertanggung
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/div/div").click() # Click Status Tertanggung
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li").click() # Select Tertanggung (Diri Sendiri)
-        driver.find_element_by_xpath("(//div[@id='su-base-select']/div/div)[4]").click() # Click Daftar Pekerjaan
-        driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li[16]").click() # Select Pekerjaan (Karyawan Swasta)
-        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[7]/button").click() # Lanjut Button (Halaman Rincian Tertanggung)
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[4]/div/div[6]/button").click() # Lanjut Button (Halaman Rincian Tertanggung)
         time.sleep(1)
 
         # Halaman Ahli Waris
-        driver.find_element_by_xpath("(//input[@type='search'])[5]").click() # Click Daftar Ahli Waris
+        driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[1]/div/div[2]/div").click() # Click Daftar Ahli Waris
         driver.find_element_by_xpath("//div[@id='su-base-select']/div[2]/ul/li[4]").click() # Select Daftar Ahli Waris
         driver.find_element_by_xpath("(//input[@name='name'])[3]").click()
         driver.find_element_by_xpath("(//input[@name='name'])[3]").send_keys(NamaAhliWaris) # Input Ahli Waris
@@ -101,35 +127,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("/html/body/div/div[2]/div/div[5]/div/div[3]/div/div[1]/div/img").click() # Click Calendar Button
         time.sleep(1)
         driver.find_element_by_xpath("//div[@id='form-user']/div[2]/div/div[5]/div/div[5]/button").click() # Submit Button (Halaman Rincian Tertanggung)
-
-        # Halaman pembayaran
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[2]/div/label").click() # Click S&K 1
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() # Click S&K 2
-        time.sleep(1)
-        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() # Click S&K 3
-        driver.find_element_by_id("next-step").click() # SUBMIT
-        time.sleep(1)
-
-        # Halaman Faspay
-        driver.find_element_by_name("CARDNAME").click()
-        driver.find_element_by_name("CARDNAME").send_keys(CardName) # Input Card Name
-        driver.find_element_by_name("CARDTYPE").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").click()
-        driver.find_element_by_id("CARDNOSHOWFORMAT").send_keys(CardNum) # Input Card Number
-        driver.find_element_by_name("CARDCVC").click()
-        driver.find_element_by_name("CARDCVC").send_keys(CardCVC) # Input CVC
-        driver.find_element_by_id("month").click()
-        Select(driver.find_element_by_id("month")).select_by_visible_text("May")
-        driver.find_element_by_id("month").click()
-        driver.find_element_by_id("year").click()
-        Select(driver.find_element_by_id("year")).select_by_visible_text("2021")
-        driver.find_element_by_id("year").click()
-        driver.find_element_by_name("submit").click() # Click Submit button
-        time.sleep(2)
-        driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-        time.sleep(6)
+        time.sleep(5)
 
         driver.close()
     
