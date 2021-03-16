@@ -127,14 +127,36 @@ class TestCaseSingleProduct(unittest.TestCase):
             driver.find_element_by_xpath("(//button[@name='select-menu'])[3]").click() # Jenis kelamin tertanggung dropdown
             driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose gender
             time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/form/button").click() # Hitung biaya premi button
+            time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/div/div/button").click() # Click tambah keranjang button
+            time.sleep(1)
+
+        elif (Product) == 'well':
+            driver.find_element_by_xpath("/html/body/div/main/section[1]/section/div/div[1]/button").click() # Yuk Hitung Biaya Premi Kamu button
+            driver.find_element_by_name("select-menu").click() # Pilih plan dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose the plan
+            time.sleep(1)
+            driver.find_element_by_xpath("(//button[@name='select-menu'])[2]").click() # Tertanggung dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose the insured
+            time.sleep(1)
+            driver.find_element_by_id("insured_dob").send_keys(TglLahir,"/",BlnLahir,"/",ThnLahir) # Input Date of Birth
+            time.sleep(1)
+            driver.find_element_by_xpath("(//button[@name='select-menu'])[3]").click() # Jenis kelamin tertanggung dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose gender
+            time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/form/button").click() # Hitung biaya premi button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div/main/section[4]/div[1]/div/div/div/button[1]").click() # Click tambah keranjang button
+            time.sleep(1)
 
         else:
             print("Wrong Input. Please input 'strong', 'safe', 'life', 'care', 'well' or 'hospital' in lower case letters.")
 
         # Click Tombol Keranjang
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() #Click Tombol Keranjang
+        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[2]/div/div/img").click() # Click Tombol Keranjang
         time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[5]/div/div[2]/div").click() #Click Lanjut Beli
+        driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div[1]/div[5]/div/div[2]/div").click() # Click Lanjut Beli
 
         #Pengisi Form Isi Data
         time.sleep(3)

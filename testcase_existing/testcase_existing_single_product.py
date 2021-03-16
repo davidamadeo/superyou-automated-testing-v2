@@ -92,7 +92,7 @@ class TestCaseSingleProduct(unittest.TestCase):
             driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[5]/div/label").click() # Pilih Rider Super Holiday Protection
             driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[6]/div/label").click() # Pilih Rider SUper Motor Protection
 
-        elif (Product) == 'care':
+        elif (Product) == 'care': # With underwriting
             # Go to Super Care Product Page
             driver.find_element_by_link_text("Produk").click() # Click Produk dropdown
             driver.find_element_by_xpath("//div[@id='locale']/div[3]/div/div/div/div[2]/div[2]/div[7]/a/p").click()
@@ -107,6 +107,28 @@ class TestCaseSingleProduct(unittest.TestCase):
             time.sleep(1)
             driver.find_element_by_xpath("(//button[@name='select-menu'])[3]").click() # Jenis kelamin tertanggung dropdown
             driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose gender
+            time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/form/button").click() # Hitung biaya premi button
+            time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/div/div/button").click() # Click tambah keranjang button
+            time.sleep(1)
+
+        elif (Product) == 'well':
+            driver.find_element_by_xpath("/html/body/div/main/section[1]/section/div/div[1]/button").click() # Yuk Hitung Biaya Premi Kamu button
+            driver.find_element_by_name("select-menu").click() # Pilih plan dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose the plan
+            time.sleep(1)
+            driver.find_element_by_xpath("(//button[@name='select-menu'])[2]").click() # Tertanggung dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose the insured
+            time.sleep(1)
+            # driver.find_element_by_id("insured_dob").send_keys(TglLahir,"/",BlnLahir,"/",ThnLahir) # Input Date of Birth
+            time.sleep(1)
+            driver.find_element_by_xpath("(//button[@name='select-menu'])[3]").click() # Jenis kelamin tertanggung dropdown
+            driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Choose gender
+            time.sleep(1)
+            driver.find_element_by_xpath("//div[@id='superyou']/main/section[4]/div/div/form/button").click() # Hitung biaya premi button
+            time.sleep(1)
+            driver.find_element_by_xpath("/html/body/div/main/section[4]/div[1]/div/div/div/button[1]").click() # Click tambah keranjang button
             time.sleep(1)
 
         else:
