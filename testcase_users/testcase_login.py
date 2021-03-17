@@ -8,12 +8,11 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from decouple import config
-import unittest, time, re, sys
-
-var = sys.argv[1]
+import unittest, time, re
 
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("EXISTING_USER_PASSWORD", cast=str)
+Page = config("DASHBOARD_PAGE", cast=str)
 
 class TestCaseLogin(unittest.TestCase):
     def setUp(self):
@@ -23,7 +22,6 @@ class TestCaseLogin(unittest.TestCase):
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
-        print(var)
     
     def test_case_login(self):
         driver = self.driver
@@ -43,12 +41,29 @@ class TestCaseLogin(unittest.TestCase):
         time.sleep(1)
         driver.find_element_by_id("submit_login").click() # Submit Button
         time.sleep(4)
-        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
-        time.sleep(3)
-        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() # Claim Page
-        time.sleep(3)
-        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() # Payment Page
-        time.sleep(3)
+        
+        if (Page) == "e-policy":
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
+            time.sleep(3)
+
+        elif (Page) == "claim":
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() # Claim Page
+            time.sleep(3)
+
+        elif (Page) == "payment":
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() # Payment Page
+            time.sleep(3)
+
+        elif (Page) == "all":
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
+            time.sleep(3)
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() # Claim Page
+            time.sleep(3)
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() # Payment Page
+            time.sleep(3)
+
+        else:
+            print("Wrong Input. Please input 'e-policy', 'claim', 'payment' or 'all' in lower case letters.")
 
         driver.close()
     

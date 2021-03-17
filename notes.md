@@ -37,14 +37,15 @@
 - [x] Login & Logout Partnership Dev
 - [x] Login & Logout Products
 - [x] POST method to create new scoring
+- [ ] Create transaction using dev/docs
 
 <br/>
 
 ###### Staging Super You
 - [ ] SGLC (add with riders)
 - [x] Existing super care
-- [ ] New user super well
-- [ ] Existing super well
+- [x] New user super well
+- [x] Existing super well
 - [ ] VA payment for all purchasing testcase
 
 ### List of existing test cases that needs to be fixed:

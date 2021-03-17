@@ -92,6 +92,9 @@ class TestCaseSingleProduct(unittest.TestCase):
             driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[5]/div/label").click() # Pilih Rider Super Holiday Protection
             driver.find_element_by_xpath("//section[@id='product-calculator']/div/div/div/div/div[6]/div/label").click() # Pilih Rider SUper Motor Protection
 
+            driver.find_element_by_xpath("/html/body/div[3]/div[1]/section[2]/div/div/div[2]/div[1]/div/div[3]/ul/li[3]/div/a").click() # Click Beli Plan
+            time.sleep(1)
+
         elif (Product) == 'care': # With underwriting
             # Go to Super Care Product Page
             driver.find_element_by_link_text("Produk").click() # Click Produk dropdown
