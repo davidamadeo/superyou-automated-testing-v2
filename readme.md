@@ -16,8 +16,11 @@ https://www.python.org/downloads/
 
 2. Install all the dependencies required that are listed in requirements.txt
 ```console
-python -m pip freeze > requirements.txt
 python -m pip install -r requirements.txt
+```
+or
+```console
+pip install -r requirements.txt
 ```
 
 You can check whether the dependices have been installed by running and a list of the installed dependencies will appear
