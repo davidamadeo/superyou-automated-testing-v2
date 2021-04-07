@@ -34,6 +34,7 @@ ThnLahirAhliWaris = config("YEAR_OF_BIRTH_BENEFICIARY", cast=str)
 Product = config("PRODUCT", cast=str)
 PaymentMethod = config("PAYMENT_METHOD", cast=str)
 Riders = config("RIDERS", cast=str)
+PaymentDuration = config("PAYMENT_DURATION", cast=str)
 
 CardName = config("CARD_NAME", cast=str)
 CardNum = config("CARD_NUM", cast=str)
@@ -272,6 +273,14 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() # Click S&K 2
         time.sleep(1)
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() # Click S&K 3
+        time.sleep(1)
+        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[5]/div/label").click() # Click S&K 4
+
+        if (PaymentDuration) == 'yearly':
+            driver.find_element_by_xpath("//div[@id='monthly-yearly']/div[2]/div[2]/label").click()
+
+        else:
+            next
 
         if (PaymentMethod) == "faspay":
             # Pilih metode pembayaran
@@ -294,8 +303,20 @@ class TestCaseSingleProduct(unittest.TestCase):
             driver.find_element_by_name("submit").click() # Click Submit button
             time.sleep(2)
             driver.find_element_by_link_text("LIHAT AKUN KAMU").click()
-            time.sleep(6)
+
+        elif (PaymentMethod) == 'permata':
+            driver.find_element_by_xpath("/html/body/section/form/div/div[2]/div[2]/div[8]/div/div/div/div[1]/div/div[3]/a/div").click()
+
+        elif (PaymentMethod) == 'mandiri':
+            driver.find_element_by_xpath("/html/body/section/form/div/div[2]/div[2]/div[8]/div/div/div/div[1]/div/div[2]/a/div").click()
+
+        elif (PaymentMethod) == 'indomaret':
+            driver.find_element_by_xpath("/html/body/section/form/div/div[2]/div[2]/div[8]/div/div/div/div[1]/div/div[4]/a/div").click()
+            
+        else:
+            print("Wrong Input. Please input 'faspay', 'mandiri', 'permata' or 'indomaret' in lower case letters.")
         
+        time.sleep(6)
         driver.close()
     
     def is_element_present(self, how, what):

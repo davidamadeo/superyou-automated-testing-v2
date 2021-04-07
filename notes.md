@@ -38,7 +38,7 @@
 - [x] Login & Logout Products
 - [x] POST method to create new scoring
 - [x] Create transaction using dev/docs
-- [x] Complete payment after transaction
+- [ ] Complete payment after transaction -> complete train wreck. redo.
 
 <br/>
 
@@ -59,7 +59,6 @@
 - [x] New user super well
 - [x] Existing super well
 - [ ] VA payment for all purchasing testcase
-- [ ] Custom choices for multiple products
 
 ### List of existing test cases that needs to be fixed:
 

@@ -207,6 +207,8 @@ class TestCaseSingleProduct(unittest.TestCase):
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[3]/div/label").click() # Click S&K 2
         time.sleep(1)
         driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[4]/div/label").click() # Click S&K 3
+        time.sleep(1)
+        driver.find_element_by_xpath("//section[@id='sovia-payment']/form/div/div[2]/div[2]/div[5]/div/label").click() # Click S&K 4
 
         time.sleep(300)
 

@@ -50,7 +50,7 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("filename").clear()
         driver.find_element_by_id("filename").send_keys(Filename) # Input filename
         driver.find_element_by_id("filename").send_keys(Keys.ENTER) # Play action
-        time.sleep(1)
+        time.sleep(5)
 
         driver.close()
     
