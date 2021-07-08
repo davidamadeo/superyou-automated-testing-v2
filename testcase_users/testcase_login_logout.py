@@ -28,17 +28,17 @@ class UntitledTestCase(unittest.TestCase):
     def test_untitled_test_case(self):
         driver = self.driver
         driver.maximize_window()
-        driver.get("https://staging.superyou.co.id/id")
+        driver.get("https://staging.superyou.co.id/")
 
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[3]/div/div/div[2]/a[2]").click() # Masuk button
-        driver.find_element_by_id("username").click() # Email field
-        driver.find_element_by_id("username").clear()
-        driver.find_element_by_id("username").send_keys(Email) # Input Email
-        driver.find_element_by_id("password").clear()
-        driver.find_element_by_id("password").send_keys(Password) # Input Password
-        driver.find_element_by_id("form-login").submit() # Submit button
-        driver.find_element_by_xpath("//div[2]/div/div/div/div/a/div[2]").click() # User button
-        driver.find_element_by_xpath("//a[2]/span").click() # Logout button
+        driver.find_element_by_id("masuk-button-header").click() # Login Button
+        time.sleep(1)
+        driver.find_element_by_id("user_email").click() # Email Field
+        driver.find_element_by_id("user_email").send_keys(Email) # Email Field
+        driver.find_element_by_id("user_password").click() # Password Field
+        driver.find_element_by_id("user_password").send_keys(Password) # Password Field
+        driver.find_element_by_id("login-button-loginpage").click() # Submit Button
+
+        
 
     def is_element_present(self, how, what):
         try:

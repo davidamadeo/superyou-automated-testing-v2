@@ -28,19 +28,16 @@ class TestCaseLogin(unittest.TestCase):
         driver.maximize_window()
         driver.get("https://staging.superyou.co.id/") # Website Link
 
-        time.sleep(1) # In Second
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[3]/div/div/div[2]/a[2]").click() # Login Button
+        # LOGIN PAGE #
+
+        driver.find_element_by_id("masuk-button-header").click() # Login Button
         time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").click() # Email Field
-        time.sleep(0.5)
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").send_keys(Email) # Email Field
+        driver.find_element_by_id("user_email").click() # Email Field
+        driver.find_element_by_id("user_email").send_keys(Email) # Email Field
+        driver.find_element_by_id("user_password").click() # Password Field
+        driver.find_element_by_id("user_password").send_keys(Password) # Password Field
+        driver.find_element_by_id("login-button-loginpage").click() # Submit Button
         time.sleep(1)
-        driver.find_element_by_id("password").click() # Password Field
-        time.sleep(0.5)
-        driver.find_element_by_id("password").send_keys(Password) # Password Field
-        time.sleep(1)
-        driver.find_element_by_id("submit_login").click() # Submit Button
-        time.sleep(4)
         
         if (Page) == "e-policy":
             driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
