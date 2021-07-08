@@ -54,8 +54,8 @@ python -m pip install -r requirements.txt
 
 A few ways to run automation test:
 - Visual Code: Press the Play Button (Top Right Corner)
-- Terminal (Windows): Press `python testcase_login` then click Enter
-- Terminal (Mac): Press `python3 testcase_login` then click Enter
+- Terminal (Windows): Press `python testcase_existing/testcase_existing_single_product.py` then click Enter
+- Terminal (Mac): Press `python3 testcase_existing/testcase_existing_single_product.py` then click Enter
 
 ### For references:
 Microsoft Edge Installation: https://docs.microsoft.com/en-us/microsoft-edge/webdriver-chromium/?tabs=python
