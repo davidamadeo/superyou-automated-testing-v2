@@ -226,9 +226,76 @@ class TestCaseSingleProduct(unittest.TestCase):
             driver.find_element_by_css_selector(".form__insured .btn-wrapper button[name='lanjut_button']").click() # Lanjut Button (Halaman Rincian Tertanggung)
             time.sleep(1)
 
-        elif (Product) == 'care' or 'well': # With underwriting
-            # Halaman Rincian Tertanggung
-            next
+        if (Product) == 'care':
+            # First question UW
+            driver.find_element_by_css_selector(".iwsMrY .vs__selected-options input[class='vs__search']").click()
+            driver.find_element_by_xpath("//div[@id='su-base-select']/div/ul/li").click()
+            driver.find_element_by_id("lanjut-button").click()
+
+            # Second question UW
+            element = driver.find_element_by_css_selector("#base-radio-input .radio [for='yesno-1']")
+            driver.execute_script("arguments[0].click();", element) 
+            
+            time.sleep(1)
+
+            element = driver.find_element_by_id("lanjut-button")
+            driver.execute_script("arguments[0].click();", element) 
+
+            time.sleep(1)
+
+
+            # Third question UW
+            element = driver.find_element_by_css_selector("#base-radio-input .radio [for='yesno-1']")
+            driver.execute_script("arguments[0].click();", element) 
+            
+            time.sleep(1)
+
+            element = driver.find_element_by_id("lanjut-button")
+            driver.execute_script("arguments[0].click();", element) 
+
+            time.sleep(1)
+
+            element_button = driver.find_element_by_class_name("fJqyJl")
+            driver.execute_script("arguments[0].click();", element_button) 
+
+            time.sleep(1)
+
+        if (Product) == 'well':
+            # First question UW
+            element = driver.find_element_by_css_selector("#base-radio-input .radio [for='yesno-1']")
+            driver.execute_script("arguments[0].click();", element) 
+
+            time.sleep(1)
+
+            driver.find_element_by_id("lanjut-button").click()
+
+            # Second question UW
+            element = driver.find_element_by_css_selector("#base-radio-input .radio [for='yesno-0']")
+            driver.execute_script("arguments[0].click();", element) 
+            
+            time.sleep(1)
+
+            element = driver.find_element_by_id("lanjut-button")
+            driver.execute_script("arguments[0].click();", element) 
+
+            time.sleep(1)
+
+
+            # Third question UW
+            element = driver.find_element_by_css_selector("#base-radio-input .radio [for='yesno-0']")
+            driver.execute_script("arguments[0].click();", element) 
+            
+            time.sleep(1)
+
+            element = driver.find_element_by_id("lanjut-button")
+            driver.execute_script("arguments[0].click();", element) 
+
+            time.sleep(1)
+
+            element_button = driver.find_element_by_class_name("fJqyJl")
+            driver.execute_script("arguments[0].click();", element_button) 
+
+            time.sleep(1)
 
         # Halaman Ahli Waris
         driver.find_element_by_css_selector(".form__beneficiary .each-field input[class='vs__search']").click() # Click Daftar Ahli Waris
