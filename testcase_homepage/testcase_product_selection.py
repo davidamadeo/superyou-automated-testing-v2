@@ -1,5 +1,3 @@
-# Last tested 3/11/2021 14:14
-
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -10,11 +8,10 @@ from selenium.common.exceptions import NoAlertPresentException
 from decouple import config
 import unittest, time, re
 
-Name = config("EXISTING_USER_NAME", cast=str)
-Handphone = config("EXISTING_USER_PHONE", cast=str)
 Email = config("EXISTING_USER_EMAIL", cast=str)
+Password = config("EXISTING_USER_PASSWORD", cast=str)
 
-class TestLeadGen(unittest.TestCase):
+class TestCaseLogin(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Edge(config("DRIVER_PATH", cast=str))
         # self.driver = webdriver.Chrome(config("DRIVER_PATH", cast=str))
@@ -23,20 +20,46 @@ class TestLeadGen(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_LeadGen(self):
+    def test_case_login(self):
         driver = self.driver
         driver.maximize_window()
-        driver.get("https://staging.superyou.co.id/") #Link Website
-        time.sleep(1) #In Second
+        driver.get("https://staging.superyou.co.id/") # Website Link
 
-        driver.find_element_by_id("Nama").click() # Name Field
-        driver.find_element_by_id("Nama").send_keys(Name) # Input Name
-        driver.find_element_by_id("Handphone").click() # Phone Field
-        driver.find_element_by_id("Handphone").send_keys(Handphone) # Input Phone Num
-        driver.find_element_by_id("Email").click() # Email Field
-        driver.find_element_by_id("Email").send_keys(Email) # Input Email
-        driver.find_element_by_xpath("/html/body/div[3]/div[3]/div/div/div/div[2]/div/form/button").click() # Hubungi Saya button
+        driver.execute_script("window.scrollTo(0, 780)") # Scroll to Product Selection
         time.sleep(3)
+
+        element = driver.find_elements_by_id("other-products-price-my-hospital")
+
+        assert "Rp 39.500" in element[0].text
+
+        element = []
+        element = driver.find_elements_by_id("other-products-price-super-life")
+
+        assert "Rp 33.000" in element[0].text
+
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        element = []
+        element = driver.find_elements_by_id("other-products-price-super-strong")
+
+        assert "Rp 28.500" in element[0].text
+
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        element = []
+        element = driver.find_elements_by_id("other-products-price-super-care")
+
+        assert "Rp 45.000" in element[0].text
+
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        element = []
+        element = driver.find_elements_by_id("other-products-price-super-safe")
+
+        assert "Rp 36.500" in element[0].text
+
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        element = []
+        element = driver.find_elements_by_id("other-products-price-super-well")
+
+        assert "Rp 50.000" in element[0].text
 
         driver.close()
     

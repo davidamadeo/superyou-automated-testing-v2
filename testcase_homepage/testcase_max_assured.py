@@ -1,5 +1,3 @@
-# Last tested 3/11/2021 14:13
-
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -13,7 +11,7 @@ import unittest, time, re
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("EXISTING_USER_PASSWORD", cast=str)
 
-class TestCaseLogin(unittest.TestCase):
+class TestLeadGen(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Edge(config("DRIVER_PATH", cast=str))
         # self.driver = webdriver.Chrome(config("DRIVER_PATH", cast=str))
@@ -22,28 +20,36 @@ class TestCaseLogin(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_login(self):
+    def test_case_LeadGen(self):
         driver = self.driver
         driver.maximize_window()
-        driver.get("https://staging.superyou.co.id/") # Link Website
-        time.sleep(1) # In Second
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[3]/div/div/div[2]/a[2]").click() # Login Button
+        driver.get("https://staging.superyou.co.id/") #Link Website
+        time.sleep(1) #In Second
+
+        # LOGIN PAGE #
+
+        driver.find_element_by_id("masuk-button-header").click() # Login Button
         time.sleep(1)
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").click() # Email Field
-        time.sleep(0.5)
-        driver.find_element_by_xpath("/html/body/div[3]/header/div[1]/div[2]/div/div/div/div[2]/div/div/form/div[1]/div[1]/input").send_keys(Email) # Input Email
+        driver.find_element_by_id("user_email").click() # Email Field
+        driver.find_element_by_id("user_email").send_keys(Email) # Email Field
+        driver.find_element_by_id("user_password").click() # Password Field
+        driver.find_element_by_id("user_password").send_keys(Password) # Password Field
+        driver.find_element_by_id("login-button-loginpage").click() # Submit Button
         time.sleep(1)
-        driver.find_element_by_id("password").click() # Password Field
-        time.sleep(0.5)
-        driver.find_element_by_id("password").send_keys(Password) # Input Password 
-        time.sleep(1)
-        driver.find_element_by_id("submit_login").click() # Submit Button
-        time.sleep(3)
-        driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
-        time.sleep(3)
-        driver.find_element_by_xpath("/html/body/div[2]/div[2]/div[2]/div[3]/div[2]/div/div/div/div[2]/div[1]/a").click() # Download E-Policy
-        time.sleep(7)
-        
+
+        driver.find_element_by_id("superyou-logo-dashboard").click()
+
+        # ISI-DATA #
+        driver.find_element_by_id("shopping-cart-sidebutton").click()
+        driver.find_element_by_id("cari-proteksi-cart").click()
+
+        driver.find_element_by_css_selector("#bridge_form .welcome-form button[type='submit']").click()
+
+        time.sleep(5)
+
+        assert "Kamu tidak dapat menambah produk lagi, uang pertanggungan yang didapat sudah mencapat batas 1.5 Milyar" in driver.page_source
+
+        time.sleep(2)
         driver.close()
     
     def is_element_present(self, how, what):

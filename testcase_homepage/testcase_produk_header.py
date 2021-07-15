@@ -1,5 +1,3 @@
-# Last tested 3/11/2021 14:15
-
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,7 +10,6 @@ import unittest, time, re
 
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("EXISTING_USER_PASSWORD", cast=str)
-Page = config("DASHBOARD_PAGE", cast=str)
 
 class TestCaseLogin(unittest.TestCase):
     def setUp(self):
@@ -28,39 +25,48 @@ class TestCaseLogin(unittest.TestCase):
         driver.maximize_window()
         driver.get("https://staging.superyou.co.id/") # Website Link
 
-        # LOGIN PAGE #
+        time.sleep(3)
 
-        driver.find_element_by_id("masuk-button-header").click() # Login Button
-        time.sleep(1)
-        driver.find_element_by_id("user_email").click() # Email Field
-        driver.find_element_by_id("user_email").send_keys(Email) # Email Field
-        driver.find_element_by_id("user_password").click() # Password Field
-        driver.find_element_by_id("user_password").send_keys(Password) # Password Field
-        driver.find_element_by_id("login-button-loginpage").click() # Submit Button
-        time.sleep(1)
-        
-        if (Page) == "e-policy":
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
-            time.sleep(3)
+        driver.find_element_by_id("produk-dropdown-header").click()
 
-        elif (Page) == "claim":
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() # Claim Page
-            time.sleep(3)
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/super-life-protection'] .meta-desc")
 
-        elif (Page) == "payment":
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() # Payment Page
-            time.sleep(3)
+        assert "Mulai dari Rp 33.000/Bulan" in element[0].text
+        element = []
 
-        elif (Page) == "all":
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[1]/a").click() # E-Policy Page
-            time.sleep(3)
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[2]/a").click() # Claim Page
-            time.sleep(3)
-            driver.find_element_by_xpath("/html/body/div[2]/div[1]/div/div[3]/ul/li[3]/a").click() # Payment Page
-            time.sleep(3)
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/super-safe-protection'] .meta-desc")
 
-        else:
-            print("Wrong Input. Please input 'e-policy', 'claim', 'payment' or 'all' in lower case letters.")
+        assert "Mulai dari Rp 36.500/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown #produk-super-motor-header .meta-desc")
+
+        assert "Tambahan Mulai dari Rp 9.500/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown #produk-super-holiday-header .meta-desc")
+
+        assert "Tambahan Mulai dari Rp 21.000/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/my-hospital-protection'] .meta-desc")
+
+        assert "Mulai Dari Rp 39.500/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/super-well-protection'] .meta-desc")
+
+        assert "Mulai Dari Rp 50.000/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/super-care-protection'] .meta-desc")
+
+        assert "Mulai Dari Rp 45.000/Bulan" in element[0].text
+        element = []
+
+        element = driver.find_elements_by_css_selector("#superyou .products__ddown [href='/produk/super-strong-protection'] .meta-desc")
+
+        assert "Mulai dari Rp 28.500/Bulan" in element[0].text
 
         driver.close()
     
