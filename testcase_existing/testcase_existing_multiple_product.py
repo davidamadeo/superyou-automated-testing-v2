@@ -12,7 +12,7 @@ import unittest, time, re
 
 # Account Data
 Email = config("EXISTING_USER_EMAIL", cast=str)
-Password = config("NEW_USER_PASSWORD", cast=str)
+Password = config("EXISTING_USER_PASSWORD", cast=str)
 
 TglLahir = config("DAY_OF_BIRTH", cast=str)
 BlnLahir = config("MONTH_OF_BIRTH", cast=str)
