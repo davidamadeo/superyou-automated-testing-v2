@@ -114,7 +114,6 @@ class TestLeadGen(unittest.TestCase):
         time.sleep(1)
 
         driver.execute_script("window.scrollTo(0, 780)") # Scroll to Product Selection
-        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
         time.sleep(1)
         driver.find_element_by_id("other-products-detail-super-strong").click()
         driver.find_element_by_id("superyou-logo-header").click()
@@ -129,6 +128,7 @@ class TestLeadGen(unittest.TestCase):
 
         driver.execute_script("window.scrollTo(0, 780)") # Scroll to Product Selection
         driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
         time.sleep(1)
         driver.find_element_by_id("other-products-detail-super-safe").click()
         driver.find_element_by_id("superyou-logo-header").click()
@@ -136,12 +136,17 @@ class TestLeadGen(unittest.TestCase):
 
         driver.execute_script("window.scrollTo(0, 780)") # Scroll to Product Selection
         driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
         time.sleep(1)
         driver.find_element_by_id("other-products-detail-super-well").click()
         driver.find_element_by_id("superyou-logo-header").click()
         time.sleep(1)
 
         driver.execute_script("window.scrollTo(0, 780)") # Scroll to Product Selection
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
+        driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
         driver.find_element_by_css_selector("#superyou .other-products__wrapper button[aria-label='Next']").click()
         time.sleep(1)
         driver.find_element_by_id("other-products-detail-my-hospital").click()
