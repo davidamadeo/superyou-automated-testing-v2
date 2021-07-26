@@ -169,7 +169,7 @@ class TestLeadGen(unittest.TestCase):
 
         driver.execute_script("window.scrollTo(0, 3500)") # Scroll to footer
         time.sleep(1)
-        driver.find_element_by_id("produk-super-motor-footer").click()
+        driver.find_element_by_id("produk-super- motor-footer").click()
         driver.find_element_by_id("superyou-logo-header").click()
         time.sleep(1)
 
