@@ -7,6 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from decouple import config
 import unittest, time, re
 
@@ -42,7 +44,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_NewUser_SingleProduct(self):
+    def test_case_ExistingUser_SingleProduct(self):
         driver = self.driver
         driver.maximize_window() 
         driver.get("https://staging.superyou.co.id/") # Website Link
@@ -276,10 +278,11 @@ class TestCaseSingleProduct(unittest.TestCase):
 
             time.sleep(1)
 
-            element_button = driver.find_element_by_class_name("fJqyJl")
-            driver.execute_script("arguments[0].click();", element_button) 
+            driver.find_element_by_class_name("fJqyJl").click()
 
-            time.sleep(1)
+            time.sleep(10)
+
+            driver.find_element_by_class_name("fJqyJl").click()
 
         # Halaman Ahli Waris
         driver.find_element_by_css_selector(".form__beneficiary .each-field input[class='vs__search']").click() # Click Daftar Ahli Waris
