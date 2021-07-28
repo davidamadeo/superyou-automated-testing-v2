@@ -28,7 +28,7 @@ Product = config("PRODUCT", cast=str)
 PaymentMethod = config("PAYMENT_METHOD", cast=str)
 Riders = config("RIDERS", cast=str)
  
-class TestCaseSingleProduct(unittest.TestCase):
+class TestCaseSummaryProduct(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Edge(config("DRIVER_PATH", cast=str))
         # self.driver = webdriver.Chrome(config("DRIVER_PATH", cast=str))
@@ -37,7 +37,7 @@ class TestCaseSingleProduct(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
-    def test_case_NewUser_SingleProduct(self):
+    def test_case_ExistingUser_SummaryProduct(self):
         driver = self.driver
         driver.maximize_window()
         driver.get("https://staging.superyou.co.id/") # Website Link
@@ -276,14 +276,15 @@ class TestCaseSingleProduct(unittest.TestCase):
             time.sleep(1)
 
             element = driver.find_element_by_id("lanjut-button")
-            driver.execute_script("arguments[0].click();", element) 
+            driver.execute_script("arguments[0].click();", element)  
 
             time.sleep(1)
 
-            element_button = driver.find_element_by_class_name("fJqyJl")
-            driver.execute_script("arguments[0].click();", element_button) 
+            driver.find_element_by_class_name("fJqyJl").click()
 
-            time.sleep(1)
+            time.sleep(10)
+
+            driver.find_element_by_class_name("fJqyJl").click()
 
         # Halaman Ahli Waris
         driver.find_element_by_css_selector(".form__beneficiary .each-field input[class='vs__search']").click() # Click Daftar Ahli Waris
