@@ -13,6 +13,7 @@ import unittest, time, re
 # Account Data
 Email = config("EXISTING_USER_EMAIL", cast=str)
 Password = config("EXISTING_USER_PASSWORD", cast=str)
+Riders = config("RIDERS", cast=str)
 
 TglLahir = config("DAY_OF_BIRTH", cast=str)
 BlnLahir = config("MONTH_OF_BIRTH", cast=str)
@@ -50,9 +51,56 @@ class TestCaseSingleProduct(unittest.TestCase):
 
         # PRODUCT PAGE #
 
-        # Go to Super Strong product page
-        driver.find_element_by_id("produk-super-strong-homepage").click() # Super Strong Product Page Button
+        # Go to Super Safe product page (Silver and Gold Plan)
+        driver.find_element_by_id("produk-super-safe-homepage").click() # Super Safe Product Page Button
         time.sleep(1)
+        driver.find_element_by_id("yuk-hitung-biaya-premi-product-page").click() # Yuk Hitung Biaya Premi button
+        time.sleep(1)
+        driver.find_element_by_id("pilih-plan-selectplan-product-page").click() 
+        driver.find_element_by_xpath("//li[@id='listbox-item-2']/div").click() # Select Gold Plan
+        driver.find_element_by_id("tertanggung-selectplan-product-page").click()
+        driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Select Diri Sendiri 
+        driver.find_element_by_id("insured_dob").click()
+        driver.find_element_by_id("insured_dob").send_keys(TglLahir, BlnLahir, ThnLahir) # Input Date of Birth
+        driver.find_element_by_id("kelamin-tertanggung-selectplan-product-page").click()
+        driver.find_element_by_xpath("//li[@id='listbox-item-0']/div").click() # Select male
+
+        if (Riders) == 'holiday':
+            # Pilih Rider
+            driver.find_element_by_id("select-rider0").click() # Pilih Rider Super Holiday Protection
+
+        elif (Riders) == 'motor':
+            driver.find_element_by_id("select-rider1").click() # Pilih Rider SUper Motor Protection
+        
+        elif (Riders) == 'all':
+            # Pilih Rider
+            driver.find_element_by_id("select-rider0").click() # Pilih Rider Super Holiday Protection
+            driver.find_element_by_id("select-rider1").click() # Pilih Rider SUper Motor Protection
+        
+        elif (Riders) == 'null':
+            next
+
+        driver.find_element_by_id("hitung-biaya-premi-selectplan-product-page").click()
+
+        driver.find_element_by_id("add-to-cart-selectplan-product-page").click() # Add to cart
+        time.sleep(1)
+        driver.find_element_by_id("back-button-selectplan-product-page").click() # Lihat harga plan lain
+
+        # Buy Silver Plan
+        time.sleep(1)
+        driver.find_element_by_id("pilih-plan-selectplan-product-page").click() 
+        driver.find_element_by_xpath("//li[@id='listbox-item-1']/div").click() # Select Silver Plan
+        driver.find_element_by_id("hitung-biaya-premi-selectplan-product-page").click()
+
+        driver.find_element_by_id("add-to-cart-selectplan-product-page").click() # Add to cart
+        time.sleep(1)
+
+        # Go to Dropdown
+        driver.find_element_by_id("produk-dropdown-header").click()
+        time.sleep(2)
+        driver.find_element_by_id("produk-super-strong-header").click()
+
+        # Go to Super Strong product page
         driver.find_element_by_id("yuk-hitung-biaya-premi-product-page").click() # Yuk Hitung Biaya Premi button
         time.sleep(1)
         driver.find_element_by_id("pilih-plan-selectplan-product-page").click() 
@@ -68,16 +116,16 @@ class TestCaseSingleProduct(unittest.TestCase):
 
         driver.find_element_by_id("add-to-cart-selectplan-product-page").click() # Add to cart
         time.sleep(1)
-        driver.find_element_by_id("shopping-cart-sidebutton").click() # Click Tombol Keranjang
-        time.sleep(1)
-        driver.find_element_by_id("shopping-cart-sidebutton").click() # Click Tombol Keranjang
-        driver.find_element_by_id("add-to-cart-selectplan-product-page").click() # Add to cart
-        time.sleep(1)
         assert "Kamu tidak dapat menambah produk lagi, uang pertanggungan yang didapat sudah mencapai batas limit 1.5 Milyar" in driver.page_source
 
         time.sleep(1)
         driver.find_element_by_id("shopping-cart-sidebutton").click() # Click Tombol Keranjang
         time.sleep(1)
+        driver.find_element_by_id("shopping-cart-sidebutton").click() # Click Tombol Keranjang
+        time.sleep(1)
+        driver.find_element_by_id("add-to-cart-selectplan-product-page").click() # Add to cart
+        time.sleep(1)
+        driver.find_element_by_id("shopping-cart-sidebutton").click() # Click Tombol Keranjang
         assert "Kamu tidak dapat menambah produk lagi, uang pertanggungan yang didapat sudah mencapai batas limit 1.5 Milyar" in driver.page_source 
 
         time.sleep(3)
